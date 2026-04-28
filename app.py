@@ -1,6 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-import sqlite3
+import sqlite3, os
+
 
 app = Flask(__name__)
 CORS(app)
@@ -29,8 +30,8 @@ def init_db():
 init_db()
 
 @app.route("/")
-def home():
-    return "Downtime API is running"
+def serve_html():
+    return send_from_directory(os.getcwd(), "machine_downtime_logger1.html")
 
 @app.route("/events", methods=["GET"])
 def get_events():
